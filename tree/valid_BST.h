@@ -4,21 +4,15 @@
 class Solution {
 public:
     bool isValidBST(TreeNode *root) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        return isValid(root, NULL, NULL);
+        return isValid(root, INT_MIN, INT_MAX);
     }
 
-    bool isValid(TreeNode *root, int *min, int *max) {
-        if (root == NULL) {
+    bool isValid(TreeNode *root, int min, int max) {
+        if (root == NULL)
             return true;
-        }
-        if (min != NULL && root->val <= *min) return false;
-        if (max != NULL && root->val >= *max) return false;
-
-        if (!isValid(root->left, min, &(root->val))) return false;
-        if (!isValid(root->right, &root->val, max)) return false;
-
-        return true;
+        if (root->val <= min || root->val >= max)
+            return false;
+        return isValid(root->left, min, root->val)
+                && isValid(root->right, root->val, max);
     }
 };

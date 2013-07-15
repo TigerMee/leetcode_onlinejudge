@@ -11,6 +11,13 @@ public:
         return res;
     }
 
+    /*
+     * res：结果集
+     * s: 当前已经生成的字符串
+     * l：已经使用的"("的个数
+     * r：已经使用的")"的个数
+     * n："(", ")"最多的个数
+     */
     void generator(vector<string> &res, string s, int l, int r, int n) {
         if (l == n) {
             res.push_back(s.append(n - r, ')'));
