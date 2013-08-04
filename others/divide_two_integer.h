@@ -12,7 +12,6 @@ public:
         int64_t dd = dividend;
         int64_t dr = divisor;
 
-        printf("%d/%d\n", dd, dr);
         bool minus = false;
         if (dd < 0) {
             minus = !minus;
@@ -33,7 +32,6 @@ public:
         uint64_t cur = dr;
 
         while (cur <= dd) {
-            printf("cur: %llu\n", cur);
             cur <<= 1; // *2
             res <<= 1;
         }

@@ -6,45 +6,41 @@ using namespace std;
 
 class Solution {
 public:
+    typedef vector<vector<int> > VV;
+    typedef vector<int> V;
+
     vector<vector<int> > threeSum(vector<int> &num) {
         // Start typing your C/C++ solution below
-        // DO NOT w1rite int main() function
-        vector<vector<int> > res;
-
+        // DO NOT write int main() function
         if (num.size() < 3) {
-            return res;
+            return VV();
         }
 
+        VV res;
         sort(num.begin(), num.end());
+        for (int i = 0; i < (int)num.size()-2; i++) {
+            if (i != 0 && num[i] == num[i-1]) { // dedup
+                continue;
+            }
 
-        for (int i = 0; i < num.size(); i++) {
-            int begin = i + 1;
-            int end = num.size() - 1;
-
+            int begin = i+1, end = num.size() - 1;
             while (begin < end) {
-                int val = num[i] + num[begin] + num[end];
-                if (val == 0) {
-                    bool isExists = false;
-                    for(vector<vector<int> >::iterator it = res.begin(); it != res.end(); ++it) {
-                        if ((*it)[0] == num[i]
-                            && (*it)[1] == num[begin]
-                            && (*it)[2] == num[end]) {
-                            isExists = true;
-                            break;
-                        }
-                    }
-                    if (!isExists) {
-                        vector<int> v;
-                        v.push_back(num[i]);
-                        v.push_back(num[begin]);
-                        v.push_back(num[end]);
-                        res.push_back(v);
-                    }
+                int sum = num[i] + num[begin] + num[end];
+                if (sum < 0) {
                     begin++;
+                } else if (sum > 0) {
                     end--;
-                } else if (val < 0) {
+                } else if (begin != i+1 && num[begin] == num[begin-1]) { // dedup
                     begin++;
+                } else if (end != num.size()-1 && num[end] == num[end+1]) {
+                    end--;
                 } else {
+                    V v;
+                    v.push_back(num[i]);
+                    v.push_back(num[begin]);
+                    v.push_back(num[end]);
+                    res.push_back(v);
+                    begin++;
                     end--;
                 }
             }
