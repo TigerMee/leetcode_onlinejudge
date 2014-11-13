@@ -29,6 +29,9 @@ public:
             if (*str >= '0' && *str <= '9') {
                 num = num * 10 + (*str-'0');
                 str++;
+                if (num > INT_MAX) {
+                    break;
+                }
             } else {
                 break;
             }
